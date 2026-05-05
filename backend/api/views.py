@@ -15,12 +15,12 @@ class ContactMessageCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         instance = serializer.save()
-        # send_mail(
-        #     subject=f"New Message from Portfolio - {instance.name}",
-        #     message=f"Name: {instance.name}\nEmail: {instance.email}\nMessage: {instance.message}",
-        #     from_email=settings.EMAIL_HOST_USER,
-        #     recipient_list=[settings.EMAIL_HOST_USER],
-        #     fail_silently=False,
-        # )
+        send_mail(
+            subject=f"New Message from Portfolio - {instance.name}",
+            message=f"Name: {instance.name}\nEmail: {instance.email}\nMessage: {instance.message}",
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[settings.EMAIL_HOST_USER],
+            fail_silently=False,
+        )
 
     
