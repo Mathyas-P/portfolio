@@ -14,9 +14,10 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
-    
+
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/contact/', {
+      const API_URL = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${API_URL}/api/contact/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,7 +44,7 @@ const Contact = () => {
     <section id="contact" className="py-24 relative">
       {/* Decorative ambient elements */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-primary/5 to-transparent pointer-events-none"></div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -59,7 +60,7 @@ const Contact = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-5xl mx-auto">
-          
+
           {/* Left info side */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -74,7 +75,7 @@ const Contact = () => {
                 Whether you're looking to build a new web application, scale an existing platform, or just want to discuss tech, I'm always open to talking about new opportunities.
               </p>
             </div>
-            
+
             <div className="space-y-6">
               <div className="premium-glass p-6 rounded-2xl flex items-center space-x-4 border border-white/5 hover:border-white/10 transition-colors">
                 <div className="w-12 h-12 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-primary">
@@ -87,7 +88,7 @@ const Contact = () => {
                   </a>
                 </div>
               </div>
-              
+
               <div className="premium-glass p-6 rounded-2xl flex items-center space-x-4 border border-white/5 hover:border-white/10 transition-colors">
                 <div className="w-12 h-12 rounded-xl bg-brand-tertiary/10 flex items-center justify-center text-brand-tertiary">
                   <MessageSquare size={24} />
@@ -111,7 +112,7 @@ const Contact = () => {
             className="premium-glass-card p-8 md:p-10 relative overflow-hidden"
           >
             {status === 'success' ? (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-[#030712]/95 backdrop-blur-md"
