@@ -18,6 +18,7 @@ class ContactMessageCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         instance = serializer.save()
         try:
+            from django.core.mail import send_mail
             send_mail(
                 subject=f"New Message from Portfolio - {instance.name}",
                 message=f"Name: {instance.name}\nEmail: {instance.email}\nMessage: {instance.message}",
@@ -26,4 +27,4 @@ class ContactMessageCreateView(generics.CreateAPIView):
                 fail_silently=False,
             )
         except Exception as e:
-            logger.error(f"Failed to send email: {e}")
+            print("EMAIL ERROR:", str(e))

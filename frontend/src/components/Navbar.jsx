@@ -2,29 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Navbar = () => {
+const Navbar = ({ theme, setTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        return savedTheme === 'dark';
-      }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return true; // default dark
-  });
 
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [isDark]);
+  const toggleTheme = () => {
+    setTheme(prev => (prev === "dark" ? "light" : "dark"));
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -75,21 +59,21 @@ const Navbar = () => {
               Resume
             </a>
             <button 
-              onClick={() => setIsDark(!isDark)}
+              onClick={toggleTheme}
               className="ml-4 p-2 rounded-full bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
               aria-label="Toggle Dark Mode"
             >
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
             </button>
           </div>
 
           <div className="md:hidden flex items-center">
             <button 
-              onClick={() => setIsDark(!isDark)}
+              onClick={toggleTheme}
               className="mr-2 p-2 rounded-full bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
               aria-label="Toggle Dark Mode"
             >
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
