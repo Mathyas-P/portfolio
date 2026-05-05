@@ -32,7 +32,7 @@ const Navbar = ({ theme, setTheme }) => {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'py-4' : 'py-6'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`flex justify-between items-center px-6 transition-all duration-500 rounded-full ${isScrolled ? 'premium-glass h-16' : 'bg-transparent h-14'}`}>
+        <div className={`flex justify-between items-center px-6 transition-all duration-500 rounded-full ${isScrolled ? 'navbar h-16' : 'bg-transparent h-14'}`}>
           <div className="flex-shrink-0 cursor-pointer flex items-center" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center mr-2">
               <span className="text-white font-bold font-heading text-sm">M</span>
@@ -45,7 +45,7 @@ const Navbar = ({ theme, setTheme }) => {
               <button
                 key={link}
                 onClick={() => scrollToSection(link)}
-                className="nav-link px-4 py-2 text-gray-400 text-sm font-medium tracking-wide"
+                className="nav-link px-4 py-2 text-sm font-medium tracking-wide"
               >
                 {link}
               </button>

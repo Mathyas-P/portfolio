@@ -5,7 +5,7 @@ import LinkedinIcon from './LinkedinIcon';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#030712] py-12 border-t border-white/5 relative z-10 overflow-hidden">
+    <footer className="footer py-12 relative z-10 overflow-hidden">
       {/* Decorative gradient */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-brand-primary/50 to-transparent"></div>
       

@@ -36,7 +36,7 @@ const About = () => {
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           {/* Visual Side */}
           <div className="lg:col-span-5 relative">
-            <div className="relative rounded-2xl premium-glass-card p-2 aspect-[4/5] w-full max-w-md mx-auto lg:max-w-none group border border-white/5 hover:border-brand-primary/20 transition-all duration-500">
+            <div className="image-container aspect-[4/5] w-full max-w-md mx-auto lg:max-w-none group p-2 transition-all duration-500">
               <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary/10 via-transparent to-brand-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 rounded-2xl pointer-events-none"></div>
               <div className="w-full h-full rounded-xl overflow-hidden relative bg-[#030712] flex items-center justify-center">
                  <img 
@@ -52,7 +52,7 @@ const About = () => {
             </div>
             
             {/* Experience Badge */}
-            <div className="absolute -bottom-6 -right-6 md:-right-4 premium-glass-card p-6 flex flex-col items-center justify-center shadow-lg z-20 border-t border-l border-white/10">
+            <div className="experience-badge flex flex-col items-center justify-center z-20">
               <span className="text-4xl font-bold text-gradient mb-1">1+</span>
               <span className="text-xs font-medium text-brand-muted uppercase tracking-wider text-center">Years of<br/>Experience</span>
             </div>
@@ -66,7 +66,7 @@ const About = () => {
             viewport={{ once: true, margin: "-80px" }}
             className="lg:col-span-7 space-y-8"
           >
-            <div className="premium-glass-card p-8 sm:p-10">
+            <div className="about-content">
               <motion.h4 variants={itemVariants} className="text-2xl font-bold mb-6 text-white flex items-center">
                 <Code className="text-brand-primary mr-3" size={28} />
                 Who I Am
@@ -86,7 +86,7 @@ const About = () => {
 
             {/* Core Competencies Grid */}
             <div className="grid sm:grid-cols-2 gap-4">
-              <div className="premium-glass p-5 rounded-xl flex items-start space-x-4 border border-white/5 hover:border-white/10 transition-colors">
+              <div className="info-card flex items-start space-x-4">
                 <div className="p-3 rounded-lg bg-indigo-500/10 text-indigo-400">
                   <Layout size={24} />
                 </div>
@@ -96,7 +96,7 @@ const About = () => {
                 </div>
               </div>
               
-              <div className="premium-glass p-5 rounded-xl flex items-start space-x-4 border border-white/5 hover:border-white/10 transition-colors">
+              <div className="info-card flex items-start space-x-4">
                 <div className="p-3 rounded-lg bg-purple-500/10 text-purple-400">
                   <Server size={24} />
                 </div>

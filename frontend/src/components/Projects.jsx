@@ -102,13 +102,13 @@ const Projects = () => {
                 key={project.id}
                 className="group h-full"
               >
-                <div className="premium-glass-card h-full p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(99,102,241,0.2)] border border-white/5 group-hover:border-white/10 flex flex-col">
+                <div className="card h-full p-8 flex flex-col">
                   
                   {/* Decorative background glow based on project gradient */}
                   <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${project.gradient} rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`}></div>
                   
                   <div className="flex justify-between items-start mb-6 relative z-10">
-                    <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-primary group-hover:scale-110 group-hover:bg-brand-primary/10 transition-all duration-300">
+                    <div className="w-12 h-12 rounded-xl bg-[var(--bg)] border border-[var(--border)] flex items-center justify-center text-brand-primary group-hover:scale-110 group-hover:bg-brand-primary/10 transition-all duration-300">
                       <FolderGit2 size={24} />
                     </div>
                     <div className="flex space-x-3">
@@ -132,7 +132,7 @@ const Projects = () => {
                   
                   <div className="flex flex-wrap gap-2 mt-auto relative z-10">
                     {project.tech.map((t, i) => (
-                      <span key={i} className="px-3 py-1.5 bg-white/5 border border-white/5 text-gray-300 text-xs font-mono rounded-md group-hover:border-white/10 transition-colors">
+                      <span key={i} className="px-3 py-1.5 bg-[var(--bg)] border border-[var(--border)] text-[var(--text-muted)] text-xs font-mono rounded-md group-hover:border-brand-primary/30 transition-colors">
                         {t}
                       </span>
                     ))}

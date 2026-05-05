@@ -16,16 +16,16 @@ function App() {
 
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
+    if (theme === "light") {
+      root.classList.add("light");
     } else {
-      root.classList.remove("dark");
+      root.classList.remove("light");
     }
     localStorage.setItem("theme", theme);
   }, [theme]);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#030712] text-black dark:text-brand-text font-sans relative overflow-x-hidden transition-colors duration-300">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] font-sans relative overflow-x-hidden transition-colors duration-300">
       <div className="ambient-light"></div>
       <div className="absolute inset-0 bg-grid-pattern opacity-20 pointer-events-none"></div>
       

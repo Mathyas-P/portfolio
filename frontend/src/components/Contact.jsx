@@ -98,7 +98,7 @@ const Contact = () => {
             </div>
 
             <div className="space-y-6">
-              <div className="premium-glass p-6 rounded-2xl flex items-center space-x-4 border border-white/5 hover:border-white/10 transition-colors">
+              <div className="card p-6 flex items-center space-x-4">
                 <div className="w-12 h-12 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-primary">
                   <Mail size={24} />
                 </div>
@@ -110,7 +110,7 @@ const Contact = () => {
                 </div>
               </div>
 
-              <div className="premium-glass p-6 rounded-2xl flex items-center space-x-4 border border-white/5 hover:border-white/10 transition-colors">
+              <div className="card p-6 flex items-center space-x-4">
                 <div className="w-12 h-12 rounded-xl bg-brand-tertiary/10 flex items-center justify-center text-brand-tertiary">
                   <MessageSquare size={24} />
                 </div>
@@ -130,7 +130,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="premium-glass-card p-8 md:p-10 relative overflow-hidden"
+            className="card p-8 md:p-10 relative overflow-hidden"
           >
             {status === 'success' ? (
               <motion.div
@@ -157,7 +157,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-[#030712]/50 border border-white/10 rounded-xl focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none transition-all text-white placeholder-gray-600"
+                    className="input-field w-full px-4 py-3 rounded-xl placeholder-gray-500"
                     placeholder="John Doe"
                   />
                 </div>
@@ -170,7 +170,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-[#030712]/50 border border-white/10 rounded-xl focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none transition-all text-white placeholder-gray-600"
+                    className="input-field w-full px-4 py-3 rounded-xl placeholder-gray-500"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -183,7 +183,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     rows={4}
-                    className="w-full px-4 py-3 bg-[#030712]/50 border border-white/10 rounded-xl focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none transition-all text-white placeholder-gray-600 resize-none"
+                    className="input-field w-full px-4 py-3 rounded-xl placeholder-gray-500 resize-none"
                     placeholder="How can I help you?"
                   />
                 </div>

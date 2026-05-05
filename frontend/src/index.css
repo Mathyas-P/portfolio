@@ -1,29 +1,79 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-primary: #818CF8;   /* Indigo 400 */
-  --color-brand-secondary: #C084FC; /* Purple 400 */
-  --color-brand-tertiary: #22D3EE;  /* Cyan 400 */
-  --color-brand-bg: #030712;        /* Gray 950 - very deep dark */
-  --color-brand-text: #F8FAFC;      /* Slate 50 */
-  --color-brand-muted: #94A3B8;     /* Slate 400 */
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-heading: 'Outfit', 'Poppins', system-ui, sans-serif;
+
+  /* Aliasing hardcoded classes to dynamic CSS variables */
+  --color-white: var(--text-inverted);
+  --color-gray-200: var(--text-muted);
+  --color-gray-300: var(--text-muted);
+  --color-gray-400: var(--text-muted);
+  --color-gray-800: var(--progress-bg);
+  --color-gray-950: var(--bg-inverted);
 }
 
 @layer base {
   :root {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-    --border: 216 34% 17%;
+    /* DARK THEME (DEFAULT — MUST MATCH CURRENT UI EXACTLY) */
+    --bg: #030712;
+    --text: #ffffff;
+    --text-muted: #94a3b8;
+    --card: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(15, 23, 42, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-medium: 0 20px 40px -15px rgba(99,102,241,0.2);
+    --primary: #818CF8;
+    
+    /* Additional UI tokens matching exact dark mode */
+    --secondary: #C084FC;
+    --tertiary: #22D3EE;
+    --btn-text: #030712; 
+    --btn-bg: #ffffff;
+    --nav-btn-hover: rgba(255, 255, 255, 0.1);
+    --card-border-hover: rgba(255, 255, 255, 0.2);
+    --ambient-opacity: 0.8;
+    
+    /* Mapped Aliases */
+    --text-inverted: #ffffff;
+    --bg-inverted: #030712;
+    --progress-bg: rgba(31, 41, 55, 0.5); /* gray-800 */
   }
-}
 
-@layer base {
+  .light {
+    /* LIGHT THEME (NEW COLORS ONLY) */
+    --bg: #f8fafc;
+    --text: #0f172a;
+    --text-muted: #475569;
+    --card: #ffffff;
+    --border: rgba(0, 0, 0, 0.08);
+    --glass-bg: #ffffff;
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    --primary: #4F46E5;
+    
+    /* Additional UI tokens for light mode */
+    --secondary: #9333EA;
+    --tertiary: #0891B2;
+    --btn-text: #ffffff;
+    --btn-bg: #4F46E5;
+    --nav-btn-hover: rgba(0, 0, 0, 0.08);
+    --card-border-hover: rgba(0, 0, 0, 0.15);
+    --ambient-opacity: 0; /* Remove neon effects in light mode */
+    
+    /* Mapped Aliases */
+    --text-inverted: #0f172a;
+    --bg-inverted: #f8fafc;
+    --progress-bg: #e2e8f0;
+  }
+
   * {
-    border-color: hsl(var(--border));
+    border-color: var(--border);
     scrollbar-width: thin;
-    scrollbar-color: #334155 transparent;
+    scrollbar-color: var(--text-muted) transparent;
   }
   
   html {
@@ -31,19 +81,30 @@
   }
   
   body {
-    @apply bg-[#030712] text-brand-text font-sans antialiased overflow-x-hidden selection:bg-brand-primary/30 selection:text-white;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  ::selection {
+    background-color: rgba(129, 140, 248, 0.3);
+    color: white;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading tracking-tight;
+    font-family: var(--font-heading);
+    letter-spacing: -0.025em;
   }
 }
 
 /* --- Animated Gradient Background --- */
 .bg-grid-pattern {
   background-size: 40px 40px;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-image: linear-gradient(to right, var(--border) 1px, transparent 1px),
+                    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
   mask-image: radial-gradient(circle at center, black, transparent 80%);
 }
 
@@ -55,38 +116,148 @@
   height: 140vh;
   z-index: -1;
   background: 
-    radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 40%),
-    radial-gradient(circle at 85% 30%, rgba(192, 132, 252, 0.15), transparent 40%),
-    radial-gradient(circle at 50% 80%, rgba(34, 211, 238, 0.1), transparent 50%);
+    radial-gradient(circle at 15% 50%, var(--primary) 15%, transparent 40%),
+    radial-gradient(circle at 85% 30%, var(--secondary) 15%, transparent 40%),
+    radial-gradient(circle at 50% 80%, var(--tertiary) 10%, transparent 50%);
   filter: blur(80px);
   animation: pulse-slow 10s ease-in-out infinite alternate;
   pointer-events: none;
+  opacity: var(--ambient-opacity);
 }
 
 @keyframes pulse-slow {
-  0% { transform: scale(1) translate(0, 0); opacity: 0.8; }
-  100% { transform: scale(1.05) translate(2%, 2%); opacity: 1; }
+  0% { transform: scale(1) translate(0, 0); opacity: var(--ambient-opacity); }
+  100% { transform: scale(1.05) translate(2%, 2%); opacity: calc(var(--ambient-opacity) + 0.2); }
 }
 
-/* --- Premium Utilities --- */
-.premium-glass {
-  background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+/* 1. Navbar Improvement */
+.navbar {
+  background: rgba(10, 15, 30, 0.6);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+:root.light .navbar {
+  background: rgba(255, 255, 255, 0.8);
 }
 
-.premium-glass-card {
-  background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  @apply rounded-2xl relative overflow-hidden transition-all duration-300;
+.nav-link {
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+.nav-link:hover {
+  color: var(--text);
 }
 
-.premium-glass-card::before {
+/* 2. About Section */
+.about-content {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: var(--shadow-soft);
+}
+.about-content p {
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* Image Container */
+.image-container {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Experience Badge */
+.experience-badge {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  font-weight: 500;
+}
+:root.light .experience-badge {
+  background: rgba(255,255,255,0.8);
+}
+
+/* Info Card */
+.info-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* --- Unified Card Component --- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Light Mode Specific Enhancements for Experience Section */
+:root.light .experience-section {
+  background: #f1f5f9;
+}
+
+:root.light .experience-card {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+:root.light .experience-card:hover {
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+}
+
+:root.light .experience-card p {
+  color: #475569;
+}
+
+:root.light .timeline-line {
+  background: rgba(0,0,0,0.15);
+  box-shadow: none;
+}
+
+:root.light .timeline-icon {
+  background: #ffffff;
+  border: 2px solid var(--primary);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+:root.light .date-badge {
+  background: #f8fafc;
+  border: 1px solid rgba(0,0,0,0.08);
+  color: #334155;
+}
+
+:root.light .impact-box {
+  background: #f8fafc;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+:root:not(.light) .card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -99,23 +270,69 @@
   pointer-events: none;
 }
 
+/* 1. Progress Bars */
+.progress-bar-fill {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  box-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
+}
+
+/* 3. Input Fields */
+.input-field {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: all 0.3s ease;
+}
+.input-field:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79,70,229,0.15);
+  outline: none;
+}
+
+/* 4. Footer */
+.footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
 .text-gradient {
-  background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary), var(--color-brand-tertiary));
+  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--tertiary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
+/* Glow Button (Explore Work) */
 .glow-btn {
   position: relative;
-  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: all 0.3s ease;
+  background: var(--card);
+  color: var(--text) !important;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
 }
 
-.glow-btn::after {
+:root.light .glow-btn {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: none;
+}
+
+:root.light .glow-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.glow-btn .text-gray-950 {
+  color: inherit !important;
+}
+
+:root:not(.light) .glow-btn::after {
   content: '';
   position: absolute;
   inset: -2px;
-  background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary), var(--color-brand-tertiary));
+  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--tertiary));
   filter: blur(14px);
   opacity: 0.15;
   transition: all 1s ease-in-out;
@@ -127,7 +344,7 @@
   transform: scale(1.02);
 }
 
-.glow-btn:hover::after {
+:root:not(.light) .glow-btn:hover::after {
   opacity: 0.45;
   filter: blur(20px);
   inset: -4px;
@@ -135,16 +352,8 @@
 }
 
 @keyframes glow-breathe {
-  0% {
-    opacity: 0.45;
-    filter: blur(20px);
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0.3;
-    filter: blur(24px);
-    transform: scale(1.02);
-  }
+  0% { opacity: 0.45; filter: blur(20px); transform: scale(1); }
+  100% { opacity: 0.3; filter: blur(24px); transform: scale(1.02); }
 }
 
 .glow-btn:active {
@@ -166,11 +375,11 @@
   z-index: 1;
 }
 
-.nav-resume-btn::after {
+:root:not(.light) .nav-resume-btn::after {
   content: '';
   position: absolute;
   inset: -1px;
-  background: var(--color-brand-primary);
+  background: var(--primary);
   filter: blur(10px);
   opacity: 0;
   transition: all 0.6s ease-in-out;
@@ -180,10 +389,10 @@
 
 .nav-resume-btn:hover {
   transform: scale(1.02);
-  background-color: rgba(129, 140, 248, 0.15); /* Slightly brighten the background */
+  background-color: var(--nav-btn-hover);
 }
 
-.nav-resume-btn:hover::after {
+:root:not(.light) .nav-resume-btn:hover::after {
   opacity: 0.35;
   filter: blur(14px);
   inset: -2px;
@@ -215,14 +424,14 @@
   bottom: 4px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(90deg, transparent, var(--color-brand-primary), var(--color-brand-secondary), transparent);
+  background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-in-out;
   opacity: 0;
   border-radius: 2px;
 }
 
 .nav-link:hover {
-  color: white;
+  color: var(--text);
 }
 
 .nav-link:hover::after {
@@ -235,12 +444,12 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #030712;
+  background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--border);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--text-muted);
 }

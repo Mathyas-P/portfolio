@@ -79,7 +79,7 @@ const Skills = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className={`group premium-glass-card p-8 transition-all duration-500 hover:-translate-y-2 border border-white/5 ${skillGroup.borderColor} ${skillGroup.glowColor}`}
+              className={`card group p-8 ${skillGroup.borderColor} ${skillGroup.glowColor}`}
             >
               <div className="flex items-center mb-8">
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${skillGroup.color} flex items-center justify-center text-white mr-4 border border-white/10 group-hover:scale-110 transition-transform duration-300`}>
@@ -97,7 +97,7 @@ const Skills = () => {
                     </div>
                     <div className="w-full h-2 bg-gray-800/50 rounded-full overflow-hidden border border-white/5">
                       <motion.div 
-                        className="h-full bg-gradient-to-r from-brand-primary to-brand-tertiary rounded-full relative"
+                        className="h-full progress-bar-fill rounded-full relative"
                         initial={{ width: 0 }}
                         whileInView={{ width: `${skill.level}%` }}
                         viewport={{ once: true, amount: 0.2 }}
