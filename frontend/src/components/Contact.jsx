@@ -14,11 +14,15 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
-    
+
     // Cold start handling for Render
     const wakingTimeout = setTimeout(() => {
       setStatus('waking');
     }, 4000);
+
+    // Abort if request takes longer than 8 seconds
+    const controller = new AbortController();
+    const abortTimeout = setTimeout(() => controller.abort(), 8000);
 
     try {
       const API_URL = import.meta.env.VITE_API_URL;
@@ -28,23 +32,16 @@ const Contact = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+        signal: controller.signal,
       });
 
       clearTimeout(wakingTimeout);
+      clearTimeout(abortTimeout);
+
+      const data = await response.json();
 
       if (!response.ok) {
-        let errorMsg = 'Failed to send message';
-        try {
-          const errorData = await response.json();
-          if (errorData && errorData.error) {
-             errorMsg = errorData.error;
-          } else if (errorData && typeof errorData === 'object') {
-             errorMsg = Object.values(errorData).join(' ');
-          }
-        } catch(err) {
-          // Fallback if response is not JSON
-        }
-        throw new Error(errorMsg);
+        throw new Error(data.detail || data.error || JSON.stringify(data) || 'Server error');
       }
 
       setStatus('success');
@@ -52,9 +49,14 @@ const Contact = () => {
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error) {
       clearTimeout(wakingTimeout);
+      clearTimeout(abortTimeout);
       console.error("Contact form error:", error);
       setStatus('error');
-      setErrorMessage(error.message || 'Something went wrong. Please try again.');
+      if (error.name === 'AbortError') {
+        setErrorMessage('Request timed out. Server may be starting up — please try again.');
+      } else {
+        setErrorMessage(error.message || 'Something went wrong. Please try again.');
+      }
       setTimeout(() => setStatus('idle'), 5000);
     }
   };
