@@ -14,6 +14,11 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
+    
+    // Cold start handling for Render
+    const wakingTimeout = setTimeout(() => {
+      setStatus('waking');
+    }, 4000);
 
     try {
       const API_URL = import.meta.env.VITE_API_URL;
@@ -25,17 +30,31 @@ const Contact = () => {
         body: JSON.stringify(formData),
       });
 
+      clearTimeout(wakingTimeout);
+
       if (!response.ok) {
-        throw new Error('Failed to send message');
+        let errorMsg = 'Failed to send message';
+        try {
+          const errorData = await response.json();
+          if (errorData && errorData.error) {
+             errorMsg = errorData.error;
+          } else if (errorData && typeof errorData === 'object') {
+             errorMsg = Object.values(errorData).join(' ');
+          }
+        } catch(err) {
+          // Fallback if response is not JSON
+        }
+        throw new Error(errorMsg);
       }
 
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error) {
-      console.error(error);
+      clearTimeout(wakingTimeout);
+      console.error("Contact form error:", error);
       setStatus('error');
-      setErrorMessage('Something went wrong. Please try again.');
+      setErrorMessage(error.message || 'Something went wrong. Please try again.');
       setTimeout(() => setStatus('idle'), 5000);
     }
   };
@@ -174,14 +193,14 @@ const Contact = () => {
 
               <button
                 type="submit"
-                disabled={status === 'loading'}
+                disabled={status === 'loading' || status === 'waking'}
                 className="glow-btn w-full group relative px-8 py-4 bg-brand-primary text-white rounded-xl font-bold flex items-center justify-center transition-all hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 mt-2"
               >
                 <span className="relative z-10 flex items-center">
-                  {status === 'loading' ? (
+                  {(status === 'loading' || status === 'waking') ? (
                     <>
                       <Loader2 className="animate-spin mr-2" size={20} />
-                      Sending...
+                      {status === 'waking' ? 'Server is waking up, please wait...' : 'Sending...'}
                     </>
                   ) : (
                     <>

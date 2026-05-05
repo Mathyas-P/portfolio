@@ -27,7 +27,7 @@ load_dotenv(BASE_DIR / '.env')
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+DEBUG = False
 
 allowed_hosts = os.getenv("ALLOWED_HOSTS", "")
 ALLOWED_HOSTS = allowed_hosts.split(",") if allowed_hosts else []
@@ -58,7 +58,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOWED_ORIGINS = [
+    "https://portfolio-opal-kappa-42.vercel.app"
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://portfolio-opal-kappa-42.vercel.app"
+]
 
 ROOT_URLCONF = 'backend.urls'
 

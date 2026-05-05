@@ -111,20 +111,27 @@ const Hero = () => {
             {/* Main Illustration */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
+              transition={{ 
+                duration: 1, 
+                ease: "easeOut",
+                y: { repeat: Infinity, duration: 4, ease: "easeInOut" } 
+              }}
               className="relative z-10 w-full h-full flex items-center justify-center"
             >
-              <motion.img
-                src="/hero-illustration.png"
-                alt="3D Developer Workspace"
-                className="w-full max-w-[550px] object-contain drop-shadow-[0_20px_50px_rgba(99,102,241,0.2)] brightness-90 blur-[0.5px] opacity-95"
-                animate={{ 
-                  y: [-15, 15, -15],
-                  rotateZ: [-1, 1, -1]
-                }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              />
+              <div className="relative">
+                {/* Premium Gradient Overlay/Glow behind the image */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary/20 to-brand-secondary/20 rounded-full blur-3xl scale-110 -z-10"></div>
+                <motion.img
+                  src="/hero-illustration.png"
+                  alt="3D Developer Workspace"
+                  className="relative z-10 w-full max-w-[550px] object-contain drop-shadow-[0_20px_50px_rgba(99,102,241,0.4)] brightness-105"
+                  animate={{ 
+                    rotateZ: [-1, 1, -1]
+                  }}
+                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </div>
             </motion.div>
           </div>
         </div>

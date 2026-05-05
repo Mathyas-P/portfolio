@@ -100,8 +100,9 @@ const Skills = () => {
                         className="h-full bg-gradient-to-r from-brand-primary to-brand-tertiary rounded-full relative"
                         initial={{ width: 0 }}
                         whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true, margin: "-50px" }}
+                        viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 1, delay: 0.2 + (i * 0.1), ease: "easeOut" }}
+                        style={{ width: `${skill.level}%` }}
                       >
                         <div className="absolute top-0 right-0 bottom-0 w-4 bg-white/30 blur-[2px] rounded-full"></div>
                       </motion.div>

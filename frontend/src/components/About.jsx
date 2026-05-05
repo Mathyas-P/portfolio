@@ -4,6 +4,19 @@ import { Code, Database, Layout, Server } from 'lucide-react';
 import profile from '../assets/profile.webp';
 
 const About = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5 } }
+  };
+
   return (
     <section id="about" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,27 +60,27 @@ const About = () => {
 
           {/* Text Side */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="show"
             viewport={{ once: true, margin: "-80px" }}
             className="lg:col-span-7 space-y-8"
           >
             <div className="premium-glass-card p-8 sm:p-10">
-              <h4 className="text-2xl font-bold mb-6 text-white flex items-center">
+              <motion.h4 variants={itemVariants} className="text-2xl font-bold mb-6 text-white flex items-center">
                 <Code className="text-brand-primary mr-3" size={28} />
                 Who I Am
-              </h4>
+              </motion.h4>
               <div className="space-y-8 text-brand-muted text-lg leading-relaxed">
-                <p>
+                <motion.p variants={itemVariants}>
                   I’m a Computer Science graduate actively building full-stack web applications with React and Django.
-                </p>
-                <p>
+                </motion.p>
+                <motion.p variants={itemVariants}>
                   I’ve developed a real-time monitoring system, a blog platform, and an e-commerce application. These projects gave me hands-on experience across both frontend and backend development.
-                </p>
-                <p>
+                </motion.p>
+                <motion.p variants={itemVariants}>
                   I enjoy solving real-world problems. I focus on improving my skills through practical work and continuously learning new technologies to grow as a developer.
-                </p>
+                </motion.p>
               </div>
             </div>
 
