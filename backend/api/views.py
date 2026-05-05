@@ -1,5 +1,5 @@
-import threading
 from rest_framework import generics
+from django.core.mail import send_mail
 from django.conf import settings
 from .models import ContactMessage
 from .serializers import ContactMessageSerializer
@@ -10,25 +10,6 @@ def home(request):
     return HttpResponse("API is running")
 
 
-def _send_contact_email(name, email, message):
-    """Send email in background thread so the API responds instantly."""
-    try:
-        from django.core.mail import send_mail
-
-        send_mail(
-            subject=f"Portfolio Message from {name}",
-            message=f"Name: {name}\nEmail: {email}\nMessage: {message}",
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[settings.EMAIL_HOST_USER],
-            fail_silently=False,
-        )
-
-        print("EMAIL SENT SUCCESSFULLY")
-
-    except Exception as e:
-        print("EMAIL ERROR:", str(e))
-
-
 class ContactMessageCreateView(generics.CreateAPIView):
     queryset = ContactMessage.objects.all()
     serializer_class = ContactMessageSerializer
@@ -36,10 +17,20 @@ class ContactMessageCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         instance = serializer.save()
 
-        # Fire-and-forget: email sends in background, API returns 201 immediately
-        thread = threading.Thread(
-            target=_send_contact_email,
-            args=(instance.name, instance.email, instance.message),
-            daemon=True,
-        )
-        thread.start()
+        # Send email synchronously so it completes before the response
+        try:
+            send_mail(
+                subject=f"Portfolio Message from {instance.name}",
+                message=(
+                    f"Name: {instance.name}\n"
+                    f"Email: {instance.email}\n"
+                    f"Message:\n{instance.message}"
+                ),
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[settings.EMAIL_HOST_USER],
+                fail_silently=False,
+            )
+            print("EMAIL SENT SUCCESSFULLY")
+        except Exception as e:
+            # Log the error — visible in Render logs
+            print(f"EMAIL ERROR: {e}")
