@@ -119,17 +119,26 @@ const Hero = () => {
               }}
               className="relative z-10 w-full h-full flex items-center justify-center"
             >
-              <div className="relative">
+              <div className="relative w-full flex justify-center">
                 {/* Premium Gradient Overlay/Glow behind the image */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary/20 to-brand-secondary/20 rounded-full blur-3xl scale-110 -z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary/20 to-brand-secondary/20 rounded-3xl blur-3xl scale-110 -z-10"></div>
                 <motion.img
-                  src="/hero-illustration.png"
-                  alt="3D Developer Workspace"
-                  className="relative z-10 w-full max-w-[550px] object-contain drop-shadow-[0_20px_50px_rgba(99,102,241,0.4)] brightness-105"
+                  src="/dev-workspace-dark.png"
+                  alt="Realistic Dark Workspace"
+                  className="hero-img-dark relative z-10 w-full max-w-[550px] object-cover rounded-3xl drop-shadow-[0_20px_50px_rgba(99,102,241,0.4)] brightness-90"
                   animate={{ 
-                    rotateZ: [-1, 1, -1]
+                    y: [-8, 8, -8]
                   }}
-                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.img
+                  src="/dev-workspace-light.png"
+                  alt="Realistic Light Workspace"
+                  className="hero-img-light absolute top-0 z-10 w-full max-w-[550px] object-cover rounded-3xl drop-shadow-[0_15px_35px_rgba(79,70,229,0.15)] brightness-95"
+                  animate={{ 
+                    y: [-8, 8, -8]
+                  }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 />
               </div>
             </motion.div>

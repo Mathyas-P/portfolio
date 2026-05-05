@@ -453,3 +453,17 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
+
+/* Hero Images Theme Switching */
+.hero-img-dark, .hero-img-light {
+  transition: opacity 0.5s ease-in-out;
+}
+.hero-img-light {
+  opacity: 0;
+}
+:root.light .hero-img-dark {
+  opacity: 0;
+}
+:root.light .hero-img-light {
+  opacity: 1;
+}
