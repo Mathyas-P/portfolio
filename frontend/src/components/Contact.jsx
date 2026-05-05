@@ -15,14 +15,14 @@ const Contact = () => {
     e.preventDefault();
     setStatus('loading');
 
-    // Cold start handling for Render
+    // Cold start handling for Render free tier
     const wakingTimeout = setTimeout(() => {
       setStatus('waking');
-    }, 4000);
+    }, 6000);
 
-    // Abort if request takes longer than 8 seconds
+    // Abort if request takes longer than 20 seconds (Render cold start can take 10-15s)
     const controller = new AbortController();
-    const abortTimeout = setTimeout(() => controller.abort(), 8000);
+    const abortTimeout = setTimeout(() => controller.abort(), 20000);
 
     try {
       const API_URL = import.meta.env.VITE_API_URL;
