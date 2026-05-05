@@ -1,6 +1,6 @@
+import os
+import resend
 from rest_framework import generics
-from django.core.mail import send_mail
-from django.conf import settings
 from .models import ContactMessage
 from .serializers import ContactMessageSerializer
 from django.http import HttpResponse
@@ -17,20 +17,20 @@ class ContactMessageCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         instance = serializer.save()
 
-        # Send email synchronously so it completes before the response
+        # Send email via Resend HTTP API (works on Render free tier — no SMTP needed)
         try:
-            send_mail(
-                subject=f"Portfolio Message from {instance.name}",
-                message=(
+            resend.api_key = os.environ.get("RESEND_API_KEY")
+
+            resend.Emails.send({
+                "from": "Portfolio Contact <onboarding@resend.dev>",
+                "to": [os.environ.get("CONTACT_EMAIL")],
+                "subject": f"Portfolio Message from {instance.name}",
+                "text": (
                     f"Name: {instance.name}\n"
-                    f"Email: {instance.email}\n"
+                    f"Email: {instance.email}\n\n"
                     f"Message:\n{instance.message}"
                 ),
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[settings.EMAIL_HOST_USER],
-                fail_silently=False,
-            )
-            print("EMAIL SENT SUCCESSFULLY")
+            })
+            print("EMAIL SENT SUCCESSFULLY via Resend")
         except Exception as e:
-            # Log the error — visible in Render logs
             print(f"EMAIL ERROR: {e}")
