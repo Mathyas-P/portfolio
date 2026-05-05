@@ -10,9 +10,6 @@ class ContactMessageCreateView(generics.CreateAPIView):
     serializer_class = ContactMessageSerializer
 
 
-    def home(request):
-        return HttpResponse("API is running")
-
     def perform_create(self, serializer):
         instance = serializer.save()
         send_mail(
