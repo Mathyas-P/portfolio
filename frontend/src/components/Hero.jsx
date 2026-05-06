@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, Sparkles, ChevronDown } from 'lucide-react';
+import profileDark from '../assets/profile dark.webp';
+import profileLight from '../assets/profile light.webp';
 
 const Hero = () => {
   return (
@@ -123,8 +125,8 @@ const Hero = () => {
                 {/* Premium Gradient Overlay/Glow behind the image */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary/20 to-brand-secondary/20 rounded-3xl blur-3xl scale-110 -z-10"></div>
                 <motion.img
-                  src="/dev-workspace-dark.png"
-                  alt="Realistic Dark Workspace"
+                  src={profileDark}
+                  alt="Mathyas P Dark Mode"
                   className="hero-img-dark relative z-10 w-full max-w-[550px] object-cover rounded-3xl drop-shadow-[0_20px_50px_rgba(99,102,241,0.4)] brightness-90"
                   animate={{ 
                     y: [-8, 8, -8]
@@ -132,8 +134,8 @@ const Hero = () => {
                   transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 />
                 <motion.img
-                  src="/dev-workspace-light.png"
-                  alt="Realistic Light Workspace"
+                  src={profileLight}
+                  alt="Mathyas P Light Mode"
                   className="hero-img-light absolute top-0 z-10 w-full max-w-[550px] object-cover rounded-3xl drop-shadow-[0_15px_35px_rgba(79,70,229,0.15)] brightness-95"
                   animate={{ 
                     y: [-8, 8, -8]
